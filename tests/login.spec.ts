@@ -1,32 +1,34 @@
 import{test,expect} from '@playwright/test'
 import { LoginPage } from '../pages/LoginPage'
+import users from '../test-data/users.json'
 
 test.describe('Login functionality',() => {
+
+    let loginPage: LoginPage;
+
     test.beforeEach(async({page})=>{
-        await page.goto("https://www.saucedemo.com/")
+      loginPage  =new LoginPage(page)
+     await loginPage.navigateToLoginPage()
     })
 
 test("Verify Successful login with valid credentials",async({page})=>{
-
-  const loginPage  =new LoginPage(page)
   await loginPage.login(
-    'standard_user',
-    'secret_sauce'
+  users.validUser.userName,
+  users.validUser.password
   )
-  await loginPage.VerifySuccessfullogin()
+  await loginPage.verifySuccessfullogin()
 })
 
 test("Verify error message for invalid login",async({page})=>{
-    const loginPage=new LoginPage(page)
     await loginPage.login(
-            'wrong_user',
-            'wrong_password'
+   users.invalidUser.userName,
+   users.invalidUser.password
         );
 
 await loginPage.verifyInvalidLogin(
     'Epic sadface: Username and password do not match any user in this service'
     );
-await loginPage.VerifyLoginPageLoaded()
+await loginPage.verifyLoginPageLoaded()
 })
 })
 
