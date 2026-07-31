@@ -1,6 +1,7 @@
 import { Page,Locator,expect } from '@playwright/test';
 import { BasePage } from './BasePage';
-import {URLs} from '../constants1/urls'
+import {URLs} from '../constants/urls'
+import { Logger } from '../utils/logger';
 
 export class LoginPage extends BasePage{
    
@@ -26,7 +27,7 @@ export class LoginPage extends BasePage{
 
     // Navigate to Login Page
     async navigateToLoginPage(){
-        await this.page.goto(URLs.BASE_URL)
+        await this.navigate(URLs.BASE_URL)
     }
 
     // Enter Username
@@ -46,13 +47,14 @@ export class LoginPage extends BasePage{
 
     //Complete Login
     async login(username:string,password:string){
+        Logger.info("Logging into the SauceDemo application");
         await this.enterUsername(username)
         await this.enterPassword(password)
         await this.clickLoginButton()
     }
 
     //Verify Successful Login
-    async verifySuccessfullogin(){
+    async verifySuccessfulLogin(){
         await expect(this.page).toHaveURL(/inventory/)
         await expect (this.appLogo).toBeVisible()
     }

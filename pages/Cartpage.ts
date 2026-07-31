@@ -1,12 +1,13 @@
 import{Locator,Page,expect} from '@playwright/test'
 import { BasePage } from './BasePage'
+import { Logger } from '../utils/logger'
 
 export class CartPage extends BasePage{
     readonly cartTitle: Locator
     readonly backpackItem: Locator
     readonly checkoutButton:Locator
     readonly cartItems:Locator
-    readonly ContinueShopping:Locator
+    readonly continueShoppingButton:Locator
     readonly removeButton: Locator;
 
     constructor(page:Page){
@@ -15,7 +16,7 @@ export class CartPage extends BasePage{
         this.backpackItem = this.page.locator('[data-test="inventory-item-name"]')
         this.checkoutButton=this.page.locator("#checkout")
         this.cartItems=this.page.locator(".cart_item")
-        this.ContinueShopping=this.page.locator("#continue-shopping")
+        this.continueShoppingButton=this.page.locator("#continue-shopping")
         this.removeButton = this.page.locator('#remove-sauce-labs-backpack');
       
     }
@@ -25,7 +26,7 @@ export class CartPage extends BasePage{
         await expect(this.cartTitle).toHaveText('Your Cart')
     }
 
-    async verifyBackpackAdded(){
+    async verifyBackpackInCart(){
         await expect(this.backpackItem).toHaveText("Sauce Labs Backpack")
     }
 
@@ -36,16 +37,21 @@ export class CartPage extends BasePage{
     }
 
      async removeBackpack() {
-
+        Logger.info("Removing Backpack from Cart")
         await this.removeButton.click();
 
     }
 
     async verifyContinueShopping(){
-        await expect(this.ContinueShopping).toBeVisible()
+        await expect(this.continueShoppingButton).toBeVisible()
     }
+
+    async clickContinueShopping() {
+     await this.continueShoppingButton.click();
+}
     
     async clickCheckout(){
+        Logger.info("Proceeding to Checkout")
         await this.checkoutButton.click()
     }
 }

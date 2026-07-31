@@ -16,7 +16,7 @@ test("Verify Successful login with valid credentials",async({page})=>{
   users.validUser.userName,
   users.validUser.password
   )
-  await loginPage.verifySuccessfullogin()
+  await loginPage.verifySuccessfulLogin()
 })
 
 test("Verify error message for invalid login",async({page})=>{

@@ -7,10 +7,12 @@ export class BasePage{
         this.page=page
     }
 
+    // Navigate to URL
     async navigate(url:string){
         await this.page.goto(url)
     }
-
+    
+    // Get Page Title
     async getTitle(){
         return await this.page.title()
     }
@@ -22,7 +24,7 @@ export class BasePage{
     async refreshPage(){
         await this.page.reload()
     }
-    async takeScreenshot(fileName:String){
+    async takeScreenshot(fileName:string){
         await this.page.screenshot({
             path:`screenshots/${fileName}.png`,
             fullPage:true

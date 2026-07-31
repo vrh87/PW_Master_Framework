@@ -26,7 +26,7 @@ await loginPage.navigateToLoginPage()
     await inventoryPage.verifyProductsDisplayed()
 
 //Verify product count
-await inventoryPage.verifyproductCount()
+await inventoryPage.verifyProductCount()
 
 
 

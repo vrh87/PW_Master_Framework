@@ -1,5 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { Logger } from '../utils/logger';
 
 export class CheckoutPage extends BasePage {
 
@@ -73,7 +74,7 @@ export class CheckoutPage extends BasePage {
     }
 
     async continueCheckout(first: string, last: string, zip: string) {
-
+        Logger.info("Entering Checkout Details")
         await this.enterCheckoutDetails(first, last, zip);
         await this.clickContinue()
     }
@@ -85,13 +86,13 @@ export class CheckoutPage extends BasePage {
     }
 
     async clickFinish() {
-
+        Logger.info("Completing the Order")
         await this.finishButton.click();
 
     }
 
     async verifyOrderCompleted() {
-
+        Logger.info("Order Completed Successfully")
         await expect(this.completeHeader).toHaveText('Thank you for your order!');
 
         await expect(this.completeText).toContainText('Your order has been dispatched');
@@ -100,7 +101,8 @@ export class CheckoutPage extends BasePage {
 
     async clickBackHome() {
 
-        await this.backHomeButton.click();
+        await this.backHomeButton.click()
+        await expect(this.page).toHaveURL(/inventory/)
 
     }
 
