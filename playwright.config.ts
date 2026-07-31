@@ -36,7 +36,7 @@ export default defineConfig({
     screenshot: 'only-on-failure',           // Screenshot for every test
     video: 'retain-on-failure',                // Video for every test
     trace: 'retain-on-failure',                // Trace for every test
-    headless:false
+    headless:true
   },
 
   /* Configure projects for major browsers */
